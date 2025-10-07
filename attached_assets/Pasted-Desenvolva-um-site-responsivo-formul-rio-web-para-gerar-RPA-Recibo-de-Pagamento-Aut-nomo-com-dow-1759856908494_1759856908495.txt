@@ -1,0 +1,167 @@
+Desenvolva um site responsivo (formulário web) para gerar RPA – Recibo de Pagamento Autônomo com download em PDF profissional, incluindo assinaturas digitais, dados bancários e observação personalizada sobre pagamento integral e tributos.
+
+O objetivo é criar uma ferramenta moderna, com design limpo e funcional, semelhante aos modelos da Contabilizei e CobreFácil, mas com mais campos e funcionalidades.
+
+⚙️ FUNCIONALIDADES OBRIGATÓRIAS
+
+Formulário interativo com os seguintes campos:
+
+🧍 Prestador de Serviço (autônomo)
+
+Nome completo
+
+CPF
+
+Endereço completo
+
+E-mail e telefone (opcional)
+
+Dados bancários:
+
+Banco
+
+Agência
+
+Conta (com tipo — Corrente / Poupança)
+
+Chave Pix (texto livre)
+
+Método de pagamento: Pix, Dinheiro, Depósito, Transferência, Outro (seleção via dropdown)
+
+🏢 Tomador de Serviço (contratante)
+
+Nome / Razão Social
+
+CNPJ / CPF
+
+Endereço completo
+
+E-mail (opcional)
+
+💼 Serviço Prestado
+
+Descrição detalhada do serviço
+
+Data de prestação do serviço
+
+Local da execução (cidade / UF)
+
+Valor bruto (R$)
+
+INSS (11%) — cálculo automático
+
+ISS (%) — campo opcional (padrão 5%)
+
+IRRF — cálculo automático (isento até R$ 2.640,00)
+
+Valor líquido calculado automaticamente
+
+💳 Pagamento
+
+Valor efetivamente pago (R$)
+
+Data do pagamento
+
+Método de pagamento (Pix, Depósito, Dinheiro, etc.)
+
+Campo opcional para observação (ex: comprovante, número da transação, etc.)
+
+🧾 Observações finais
+
+Campo de texto livre, preenchido automaticamente com:
+
+“O valor líquido foi pago integralmente em [DATA_PAGAMENTO], sendo os tributos (INSS e ISS) de responsabilidade do tomador, a recolher posteriormente.”
+
+Mas o usuário pode editar esse texto antes de gerar o PDF.
+
+🖋️ PDF GERADO
+
+O PDF deve conter:
+
+Cabeçalho com logotipo (opcional) e título:
+
+RECIBO DE PAGAMENTO AUTÔNOMO (RPA)
+
+Sessões separadas e bem formatadas:
+
+Dados do Prestador
+
+Dados do Tomador
+
+Descrição do Serviço
+
+Detalhamento dos Valores
+
+Forma de Pagamento
+
+Observações
+
+Cálculo automático e exibição:
+
+Valor Bruto: R$ 1.900,00  
+(-) INSS (11%): R$ 209,00  
+(-) ISS (5%): R$ 95,00  
+(-) IRRF: R$ 0,00  
+Valor Líquido: R$ 1.596,00  
+
+
+Campo de assinaturas com linha para ambos:
+
+__________________________________________
+Assinatura do Prestador de Serviço
+
+__________________________________________
+Assinatura do Tomador de Serviço
+
+
+Data e local da emissão no rodapé.
+
+Layout A4, estilo limpo e moderno (Tailwind CSS).
+
+Botão “Gerar PDF” usando jsPDF ou PDFMake.
+
+🎨 REQUISITOS DE DESIGN
+
+Interface moderna com Tailwind CSS.
+
+Responsividade (mobile/desktop).
+
+Dark Mode opcional.
+
+Validação de campos obrigatórios.
+
+Cálculos automáticos atualizados em tempo real.
+
+Armazenamento temporário dos dados no navegador (localStorage).
+
+Ao clicar em “Gerar PDF”, o sistema monta o documento completo e faz o download automático.
+
+💻 TECNOLOGIAS RECOMENDADAS
+
+Frontend: React + Tailwind CSS
+
+PDF: jsPDF ou PDFMake
+
+Assinatura Digital: biblioteca signature_pad (para desenhar com mouse ou dedo)
+
+Deploy: Replit, Vercel ou Netlify
+
+🧠 Objetivo final
+
+Criar um gerador profissional de RPA (Recibo de Pagamento Autônomo) com:
+
+Preenchimento de dados completo
+
+Cálculo automático de tributos
+
+Opções de método de pagamento e dados bancários
+
+Observação personalizada sobre recolhimento posterior
+
+Assinatura digital integrada
+
+Geração instantânea de PDF
+
+💬 Exemplo de observação no PDF final:
+
+“O valor líquido foi pago integralmente em 07/10/2025 via Pix, sendo os tributos (INSS e ISS) de responsabilidade do tomador, a recolher posteriormente.”
