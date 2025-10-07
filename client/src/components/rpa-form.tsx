@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useRPAForm } from '@/hooks/use-rpa-form';
 import { generateRPAPDF } from '@/lib/pdf-generator';
 import { CalculationPanel } from './calculation-panel';
-import { SignaturePad } from './signature-pad';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,7 +16,7 @@ import {
   Briefcase, 
   CreditCard, 
   FileText, 
-  Signature,
+  PenLine,
   Save,
   FolderOpen,
   Trash2,
@@ -495,33 +494,39 @@ export function RPAForm() {
         </CardContent>
       </Card>
 
-      {/* Signature Section */}
+      {/* Signature Lines Preview */}
       <Card data-testid="section-assinaturas">
         <CardHeader>
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-              <Signature className="text-primary w-5 h-5" />
+              <PenLine className="text-primary w-5 h-5" />
             </div>
             <div>
-              <CardTitle>Assinaturas Digitais</CardTitle>
-              <CardDescription>Desenhe ou carregue as assinaturas</CardDescription>
+              <CardTitle>Assinaturas</CardTitle>
+              <CardDescription>Linhas para assinatura manual após impressão</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <Label className="block mb-2">Assinatura do Prestador</Label>
-              <SignaturePad 
-                onSignatureChange={(signature) => form.setValue('signatures.prestador', signature)}
-              />
+        <CardContent className="space-y-8">
+          <Separator className="my-6" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="text-center space-y-2">
+              <div className="border-b-2 border-foreground/60 w-full mb-2" data-testid="signature-line-prestador"></div>
+              <p className="text-sm font-medium text-foreground/80">Assinatura do Prestador de Serviço</p>
             </div>
 
-            <div>
-              <Label className="block mb-2">Assinatura do Tomador</Label>
-              <SignaturePad 
-                onSignatureChange={(signature) => form.setValue('signatures.tomador', signature)}
-              />
+            <div className="text-center space-y-2">
+              <div className="border-b-2 border-foreground/60 w-full mb-2" data-testid="signature-line-tomador"></div>
+              <p className="text-sm font-medium text-foreground/80">Assinatura do Tomador de Serviço</p>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8">
+            <div className="border-2 border-dashed border-muted-foreground/30 rounded-lg p-8 text-center bg-muted/10">
+              <p className="text-xs text-muted-foreground italic">
+                Espaço reservado para selo ou carimbo de autenticação (Gov.br)
+              </p>
             </div>
           </div>
         </CardContent>

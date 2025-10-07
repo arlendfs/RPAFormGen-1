@@ -155,22 +155,86 @@ export function generateRPAPDF(formData: RPAFormData, calculations: TaxCalculati
     y += obsLines.length * 6;
   }
 
-  // Assinaturas
-  y += 20;
-  if (y > 250) {
+  // Separador antes das assinaturas
+  y += 15;
+  if (y > 220) {
     doc.addPage();
     y = 30;
   }
   
-  doc.line(20, y, 90, y);
-  doc.line(110, y, 180, y);
+  // Linha separadora
+  doc.setLineWidth(0.5);
+  doc.line(20, y, 190, y);
+  y += 15;
+
+  // Assinaturas fixas
+  const leftSignatureX = 55;
+  const rightSignatureX = 145;
+  const signatureLineY = y;
+
+  // Linha de assinatura do Prestador
+  doc.setLineWidth(0.8);
+  doc.line(20, signatureLineY, 90, signatureLineY);
+  
+  // Linha de assinatura do Tomador
+  doc.line(110, signatureLineY, 180, signatureLineY);
+  
+  // Textos das assinaturas
   y += 5;
   doc.setFontSize(9);
-  doc.text('Assinatura do Prestador', 55, y, { align: 'center' });
-  doc.text('Assinatura do Tomador', 145, y, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.text('Assinatura do Prestador de Serviço', leftSignatureX, y, { align: 'center' });
+  doc.text('Assinatura do Tomador de Serviço', rightSignatureX, y, { align: 'center' });
+
+  // Espaço para selo GOV.BR
+  y += 15;
+  const sealBoxX = 60;
+  const sealBoxY = y;
+  const sealBoxWidth = 90;
+  const sealBoxHeight = 25;
+
+  // Caixa pontilhada para o selo (simulada com linhas pequenas)
+  doc.setLineWidth(0.5);
+  doc.setDrawColor(150, 150, 150);
+  
+  // Desenhar bordas pontilhadas com pequenas linhas
+  const dashLength = 3;
+  const gapLength = 2;
+  
+  // Linha superior
+  for (let x = sealBoxX; x < sealBoxX + sealBoxWidth; x += dashLength + gapLength) {
+    doc.line(x, sealBoxY, Math.min(x + dashLength, sealBoxX + sealBoxWidth), sealBoxY);
+  }
+  
+  // Linha inferior
+  for (let x = sealBoxX; x < sealBoxX + sealBoxWidth; x += dashLength + gapLength) {
+    doc.line(x, sealBoxY + sealBoxHeight, Math.min(x + dashLength, sealBoxX + sealBoxWidth), sealBoxY + sealBoxHeight);
+  }
+  
+  // Linha esquerda
+  for (let y_pos = sealBoxY; y_pos < sealBoxY + sealBoxHeight; y_pos += dashLength + gapLength) {
+    doc.line(sealBoxX, y_pos, sealBoxX, Math.min(y_pos + dashLength, sealBoxY + sealBoxHeight));
+  }
+  
+  // Linha direita
+  for (let y_pos = sealBoxY; y_pos < sealBoxY + sealBoxHeight; y_pos += dashLength + gapLength) {
+    doc.line(sealBoxX + sealBoxWidth, y_pos, sealBoxX + sealBoxWidth, Math.min(y_pos + dashLength, sealBoxY + sealBoxHeight));
+  }
+  
+  // Resetar cor
+  doc.setDrawColor(0, 0, 0);
+
+  // Texto do selo
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(100, 100, 100);
+  const sealText = 'Espaço reservado para selo ou carimbo de autenticação (Gov.br)';
+  doc.text(sealText, 105, sealBoxY + sealBoxHeight / 2, { align: 'center', baseline: 'middle' });
+  doc.setTextColor(0, 0, 0);
 
   // Rodapé
-  y += 15;
+  y = sealBoxY + sealBoxHeight + 10;
+  doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.text(`Local e data: ${formData.servico.local}, ${formatDate(formData.pagamento.data)}`, 105, y, { align: 'center' });
 

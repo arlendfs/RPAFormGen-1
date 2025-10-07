@@ -39,10 +39,6 @@ export interface RPAFormData {
   servico: Service;
   pagamento: Payment;
   observacoes?: string;
-  signatures?: {
-    prestador?: string;
-    tomador?: string;
-  };
 }
 
 export interface TaxCalculation {
