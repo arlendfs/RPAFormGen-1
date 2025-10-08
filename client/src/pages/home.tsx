@@ -74,7 +74,7 @@ export default function Home() {
               Todos os dados são armazenados localmente no seu navegador. Nenhuma informação é enviada para servidores externos.
             </p>
             <p className="text-xs text-muted-foreground">
-              © 2024 Gerador de RPA - Desenvolvido com <Heart className="w-3 h-3 text-destructive inline mx-1" />
+              © 2025 Gerador de RPA - Desenvolvido com <Heart className="w-3 h-3 text-destructive inline mx-1" />
             </p>
           </div>
         </div>
